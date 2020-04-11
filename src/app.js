@@ -30,6 +30,10 @@ app.post("/repositories", (request, response) => {
   const { title, url, techs } = request.body;
   const repository = {id: uuid(), title, url, techs, likes: 0};
 
+  if (!title || url || techs) {
+    return response.status(400).json({error: "Por favor, preencha os dados"})
+  }
+
   repositories.push(repository);
 
   return response.status(200).json(repository);
